@@ -1,14 +1,16 @@
-Read keyvault secret using managed identity
+# Log the managed identity used to get a token
+Code sample for logging the identity of the managed identity used to get a token.
+This code sample reads a secret from keyvault using managed identity
 
-Code sample for reading a secret from keyvault using managed identity
+## Getting Started
 
-Getting Started
-
+This code sample  logs the identity (appid and object id) of the managed id to which 
+a token was issued 
 This code sample in node shows how to use managed identity to get a secret from keyvault.
 It has a generic function to read the secret: getKeyVaultSecret: which given the vault url, the secret name and id of the managed identity, reads the secret and returns it.
 
-This also logs the identity (appid and object id) of the managed id that was returned for token response. 
-If you are using systemAssigned managed identities, and need to log the id of the token issued, this is sample for that purpose
+This logging is especially useful if you are using system assigned managed identities, and 
+you are not passing an identity parameter to @azure/identity when requesting tokens. This code will allow you to keep a track for which id got used for token acquisition
 
 
 Prerequisites

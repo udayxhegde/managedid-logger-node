@@ -7,6 +7,16 @@ var logger = require("./loghelper").logger;
 // getKeyVaultSecret reads the secret from keyvault using managed identity
 //
 
+
+async function getTokenToSelf(clientID:string) {
+    const credential = (clientID == null) ? 
+        new identity.ManagedIdentityCredential() : new identity.ManagedIdentityCredential(clientID);
+    
+    const logCredential = new tokenLogger.LoggingCredential(credential);
+
+    return logCredential.getTokenDecoded("api://"+clientID);
+}
+
 async function getKeyVaultSecret(keyVaultUrl:string, secretName:string, clientID:string) {
 
     //
@@ -71,6 +81,6 @@ async function getSecret(managedIDClientId:string) {
 
 
 
-module.exports = {getSecret};
+module.exports = {getSecret, getTokenToSelf};
 
 

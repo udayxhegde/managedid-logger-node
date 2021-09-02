@@ -14,7 +14,7 @@ async function getTokenToSelf(clientID:string) {
     
     const logCredential = new tokenLogger.LoggingCredential(credential);
 
-    const scope = "api://"+clientID;
+    const scope = clientID;
     logger.info("getting token for scope %s",scope)
 
     return logCredential.getTokenDecoded(scope);

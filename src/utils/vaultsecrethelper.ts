@@ -14,7 +14,10 @@ async function getTokenToSelf(clientID:string) {
     
     const logCredential = new tokenLogger.LoggingCredential(credential);
 
-    return logCredential.getTokenDecoded("api://"+clientID);
+    const scope = clientID;
+    logger.info("getting token for scope %s",scope)
+
+    return logCredential.getTokenDecoded(scope);
 }
 
 async function getKeyVaultSecret(keyVaultUrl:string, secretName:string, clientID:string) {

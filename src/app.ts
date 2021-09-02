@@ -46,5 +46,22 @@ app.get('/id/:id/secret', function(req:any, res:any) {
     });
 });
 
+// this api uses the managed identity specified to get the secret
+app.get('/id/:id/token', function(req:any, res:any) {
+    vaultHelper.getTokenToSelf(req.params.id)
+    .then (function(response:any) {
+        logHelper.logger.info(response);
+        res.json(response);
+        return;
+    })
+    .catch(function(error:any) {
+        logHelper.logger.info(error);
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).send();
+        return;
+    });
+});
+
+
+
 app.listen(port);
 logHelper.logger.info("express now running on poprt %d", port);

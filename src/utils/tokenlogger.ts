@@ -25,13 +25,34 @@ class LoggingCredential implements TokenCredential {
                 .then (function(response:any) {
                     if (response) {                    
                         var decoded = jwt.decode(response.token, {complete : true});
-                        logger.info("Managed id: app id %s obj id %s", decoded.payload.appid, decoded.payload.oid);
+                        logger.info("decoded token %o", decoded);
                         logger.debug("scopes %o", scopes);
                     } 
                     else {
                         logger.info("in get token, empty response");
                     }
                     return response;
+                })
+                .catch(function(error:any) {
+                    logger.error("error in getToken %o", error);
+                });
+    }
+
+    public async getTokenDecoded(
+        scopes: string | string[],
+        options?: GetTokenOptions) {         
+
+        return this.credential.getToken(scopes, options)
+                .then (function(response:any) {
+                    if (response) {                    
+                        var decoded = jwt.decode(response.token, {complete : true});
+                        logger.info("decoded token %o", decoded);
+                        logger.debug("scopes %o", scopes);
+                    } 
+                    else {
+                        logger.info("in get token, empty response, scopes %o", scopes);
+                    }
+                    return decoded;
                 })
                 .catch(function(error:any) {
                     logger.error("error in getToken %o", error);

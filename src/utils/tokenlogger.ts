@@ -48,7 +48,7 @@ class LoggingCredential implements TokenCredential {
                 .then (function(response:any) {
                     if (response) {   
 			logger.info("response %o", response);   
-                        logger.info("diff is %d %d %d", Date.Now(), response.expiresOnTimestamp, response.expiresOnTimestamp-Date.Now());                             
+                        logger.info("diff is %d %d %d", Date.now(), response.expiresOnTimestamp, response.expiresOnTimestamp-Date.now());                             
                         var decoded = jwt.decode(response.token, {complete : true});
                         logger.info("decoded token %o", decoded);
                         logger.debug("scopes %o", scopes);
